@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lekpam Nkawula Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* Layout idea: one horizontal "wire" under the hero carries three colored nodes
+   (security, network, platforms). Those same three colors code every project below. */
+:root {
+  color-scheme: light;
+  --paper: #F4F7F2;
+  --card: #FFFFFF;
+  --ink: #10201A;
+  --muted: #47594F;
+  --line: #C7D3CA;
+  --sec: #C8281F;      /* security */
+  --net: #08705C;      /* network and telecom */
+  --plat: #8A5200;     /* platforms */
+  --sec-fill: #FFE3DF;
+  --net-fill: #D5F3EA;
+  --plat-fill: #FFE9B8;
+  --display: "Archivo", "Arial Black", "Helvetica Neue", Arial, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", Helvetica, Arial, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.55;
+}
+a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+a:hover { color: var(--net); }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+/* Hero */
+header { padding: 56px 0 0; }
+.eyebrow {
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted); margin: 0 0 28px;
+}
+h1 {
+  font-family: var(--display); font-stretch: 125%; font-weight: 800;
+  font-size: clamp(40px, 8.4vw, 104px); line-height: 0.96; letter-spacing: -0.02em;
+  margin: 0; text-wrap: balance;
+}
+h1 span { color: var(--net); }
+.lede {
+  max-width: 62ch; font-size: clamp(18px, 2vw, 21px); line-height: 1.5;
+  margin: 32px 0 0;
+}
+.lede strong { font-weight: 600; }
+
+.wire { position: relative; height: 56px; margin-top: 44px; }
+.wire::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 27px; height: 2px; background: var(--ink);
+}
+.wire ul {
+  position: relative; display: flex; justify-content: space-between; gap: 12px;
+  list-style: none; margin: 0; padding: 0; height: 100%; align-items: center;
+}
+.wire li {
+  display: flex; align-items: center; gap: 10px; background: var(--paper); padding: 0 12px;
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase;
+}
+.wire li:first-child { padding-left: 0; }
+.wire li:last-child { padding-right: 0; }
+.node { width: 16px; height: 16px; border-radius: 50%; border: 2px solid var(--ink); flex: none; }
+.node.sec { background: var(--sec); } .node.net { background: var(--net); } .node.plat { background: #F2B01E; }
+.packet {
+  position: absolute; top: 22px; left: 0; width: 12px; height: 12px; background: var(--ink);
+  animation: travel 2.6s cubic-bezier(.6,.05,.3,1) 0.3s 1 both;
+}
+@keyframes travel { from { left: 0; opacity: 1; } 92% { opacity: 1; } to { left: calc(100% - 12px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .packet { display: none; } }
+
+.facts {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0;
+  border: 2px solid var(--ink); background: var(--card); margin-top: 36px;
+}
+.facts div { padding: 18px 20px; border-right: 1px solid var(--line); }
+.facts div:last-child { border-right: 0; }
+.facts dt {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.facts dd { margin: 0; font-size: 15.5px; line-height: 1.4; font-weight: 500; }
+dl { margin: 0; }
+
+/* Sections */
+section { padding: 80px 0 0; }
+h2 {
+  font-family: var(--display); font-stretch: 125%; font-weight: 800;
+  font-size: clamp(26px, 3.6vw, 40px); line-height: 1.05; letter-spacing: -0.01em; margin: 0 0 8px;
+}
+.section-note { color: var(--muted); max-width: 62ch; margin: 0 0 28px; }
+
+.filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
+.filters button {
+  font: 500 14px var(--mono); letter-spacing: 0.03em; text-transform: uppercase;
+  padding: 9px 16px; border: 2px solid var(--ink); background: var(--card); color: var(--ink);
+  border-radius: 999px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+}
+.filters button:hover { background: var(--ink); color: var(--paper); }
+.filters button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.filters .node { width: 11px; height: 11px; border-color: currentColor; }
+
+.projects { display: grid; gap: 20px; }
+.project {
+  display: grid; grid-template-columns: minmax(220px, 300px) 1fr; gap: 32px;
+  background: var(--card); border: 2px solid var(--ink); border-left-width: 12px; padding: 28px 28px 26px;
+}
+.project[data-domain="sec"] { border-left-color: var(--sec); }
+.project[data-domain="net"] { border-left-color: var(--net); }
+.project[data-domain="plat"] { border-left-color: #F2B01E; }
+.project[hidden] { display: none; }
+.chip {
+  display: inline-block; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; padding: 3px 9px; border-radius: 3px; font-weight: 500;
+}
+.chip.sec { background: var(--sec-fill); color: var(--sec); }
+.chip.net { background: var(--net-fill); color: var(--net); }
+.chip.plat { background: var(--plat-fill); color: var(--plat); }
+.project h3 {
+  font-family: var(--display); font-stretch: 112%; font-weight: 800; font-size: 27px; line-height: 1.1;
+  margin: 14px 0 8px; text-wrap: balance;
+}
+.kind { margin: 0 0 16px; font-weight: 500; line-height: 1.4; }
+.meta { font-family: var(--mono); font-size: 13px; color: var(--muted); line-height: 1.6; margin: 0; }
+.meta a { font-weight: 500; }
+.project p { margin: 0 0 14px; max-width: 64ch; }
+.project ul { margin: 0 0 16px; padding-left: 20px; max-width: 64ch; }
+.project li { margin-bottom: 7px; }
+.project li::marker { color: var(--muted); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tags span {
+  font-family: var(--mono); font-size: 12.5px; padding: 3px 8px; border: 1px solid var(--line);
+  border-radius: 3px; color: var(--muted); background: var(--paper);
+}
+
+/* More builds */
+.table-scroll { overflow-x: auto; border: 2px solid var(--ink); background: var(--card); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; }
+th, td { text-align: left; padding: 14px 20px; border-bottom: 1px solid var(--line); vertical-align: top; }
+tr:last-child td { border-bottom: 0; }
+th {
+  font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); font-weight: 500; border-bottom: 2px solid var(--ink);
+}
+td:first-child { font-weight: 600; white-space: nowrap; }
+td:last-child { font-family: var(--mono); font-size: 13.5px; white-space: nowrap; }
+
+/* Toolbox and credentials */
+.cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.col { background: var(--card); border: 2px solid var(--ink); padding: 22px 24px; }
+.col h3 {
+  font-family: var(--mono); font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase;
+  margin: 0 0 12px; font-weight: 500; display: flex; align-items: center; gap: 9px;
+}
+.col ul { list-style: none; margin: 0; padding: 0; }
+.col li { padding: 7px 0; border-top: 1px solid var(--line); font-size: 15.5px; line-height: 1.4; }
+.col li:first-child { border-top: 0; padding-top: 0; }
+
+.creds { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+
+footer { margin-top: 88px; background: var(--ink); color: var(--paper); padding: 56px 0 64px; }
+footer h2 { color: var(--paper); }
+footer p { max-width: 60ch; margin: 12px 0 0; color: #D7E2DA; }
+footer a { color: var(--paper); font-family: var(--mono); font-size: 15px; }
+footer a:hover { color: #F2B01E; }
+.contact { display: flex; flex-wrap: wrap; gap: 14px 32px; margin-top: 24px; }
+
+@media (max-width: 860px) {
+  .facts { grid-template-columns: 1fr 1fr; }
+  .facts div:nth-child(2) { border-right: 0; }
+  .facts div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .project { grid-template-columns: 1fr; gap: 18px; padding: 22px 20px; }
+  .cols, .creds { grid-template-columns: 1fr; }
+  section { padding-top: 60px; }
+}
+@media (max-width: 520px) {
+  .wrap { padding: 0 16px; }
+  header { padding-top: 36px; }
+  .facts { grid-template-columns: 1fr; }
+  .facts div { border-right: 0; border-bottom: 1px solid var(--line); }
+  .facts div:last-child { border-bottom: 0; }
+  .wire li span.label { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Lekpam Madjewaba Nkawula · Portfolio</p>
+    <h1>Security engineering from the <span>backbone</span> up.</h1>
+    <p class="lede">Network engineer on <strong>AT&amp;T's core IP backbone</strong> and hands-on architect of security tooling, telecom systems and regulated-data platforms. Every project below was designed, built and taken to a working state, from the protocol layer to the production deployment.</p>
+
+    <div class="wire" aria-hidden="true">
+      <span class="packet"></span>
+      <ul>
+        <li><span class="node sec"></span><span class="label">Security</span></li>
+        <li><span class="node net"></span><span class="label">Network &amp; telecom</span></li>
+        <li><span class="node plat"></span><span class="label">Platforms</span></li>
+      </ul>
+    </div>
+
+    <dl class="facts">
+      <div><dt>Current role</dt><dd>Senior Specialist, AT&amp;T IP Transport Restoration Center (Core Backbone)</dd></div>
+      <div><dt>Education</dt><dd>M.S. Computer and Cybersecurity</dd></div>
+      <div><dt>Certifications</dt><dd>Security+, Network+, JNCIA-Junos, AI Solutions Architect</dd></div>
+      <div><dt>Languages</dt><dd>English and French (native), Hausa and Yoruba (professional)</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+<section id="work">
+  <div class="wrap">
+    <h2>Selected work</h2>
+    <p class="section-note">Nine builds across three domains. Filter by the one that matches the role.</p>
+
+    <div class="filters" role="group" aria-label="Filter projects by domain">
+      <button type="button" id="f-all" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" id="f-sec" data-filter="sec" aria-pressed="false"><span class="node sec"></span>Security</button>
+      <button type="button" id="f-net" data-filter="net" aria-pressed="false"><span class="node net"></span>Network &amp; telecom</button>
+      <button type="button" id="f-plat" data-filter="plat" aria-pressed="false"><span class="node plat"></span>Platforms</button>
+    </div>
+
+    <div class="projects">
+
+      <article class="project" data-domain="sec">
+        <div>
+          <span class="chip sec">Security</span>
+          <h3>Watching the Wire</h3>
+          <p class="kind">Authorization and egress gateway for AI agents</p>
+          <p class="meta">Status: pilot-ready gateway and reproducible benchmark<br>Code review available under NDA</p>
+        </div>
+        <div>
+          <p>An AI agent hijacked by prompt injection still looks like a legitimate client to the network. This gateway ties every outbound connection to the task the agent was actually given, and denies the rest. Sized for large enterprise networks.</p>
+          <ul>
+            <li>Signed, expiring task plans and delegation chains, so each connection traces back to a declared task and an accountable owner</li>
+            <li>Default-deny egress proxy with TLS interception that flags or blocks traffic the plan does not justify</li>
+            <li>Tamper-evident flight recorder, a human approval service, and a monitor mode for pilots</li>
+            <li>Benchmark testing whether agent hijacking can be detected from network traffic alone, with no model internals, prompt inspection or agent cooperation, including the cases where the wire-level signal fails</li>
+          </ul>
+          <div class="tags"><span>Default-deny</span><span>TLS interception</span><span>Signed task plans</span><span>Audit chain</span><span>AI agent security</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="sec">
+        <div>
+          <span class="chip sec">Security</span>
+          <h3>NeVral</h3>
+          <p class="kind">AI-native cybersecurity and compliance platform</p>
+          <p class="meta">Status: live<br><a href="https://nevrallab.com">nevrallab.com</a></p>
+        </div>
+        <div>
+          <p>One platform for finding weaknesses and proving compliance. A scan ends as a report a client can act on, with scored findings and an ordered fix list.</p>
+          <ul>
+            <li>External-surface audits with severity-ranked findings, a per-framework compliance posture and a prioritized remediation roadmap</li>
+            <li>Penetration testing, vulnerability management, threat intelligence, and SOC / SIEM monitoring</li>
+            <li>Findings mapped to FedRAMP, NIST SP 800-53, NIST CSF, SOC 2, ISO 27001, CMMC, HIPAA and PCI DSS, correlated with MITRE ATT&amp;CK</li>
+          </ul>
+          <div class="tags"><span>Pen testing</span><span>Vulnerability management</span><span>SIEM</span><span>NIST 800-53</span><span>SOC 2</span><span>MITRE ATT&amp;CK</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="sec">
+        <div>
+          <span class="chip sec">Security</span>
+          <h3>NeVral Forensics</h3>
+          <p class="kind">On-premise, air-gapped digital forensics platform</p>
+          <p class="meta">Status: live, English and French<br><a href="https://nevralforensics.com">nevralforensics.com</a></p>
+        </div>
+        <div>
+          <p>Built for police labs, anti-corruption bodies and private forensic practices that cannot send evidence to a cloud.</p>
+          <ul>
+            <li>Acquisition plus 34 parsers that turn device extractions into searchable findings</li>
+            <li>Hash-chained custody records for every piece of evidence</li>
+            <li>AI output is a draft until an examiner confirms it</li>
+          </ul>
+          <div class="tags"><span>Air-gapped</span><span>Chain of custody</span><span>Evidence parsing</span><span>Human-in-the-loop AI</span></div>
+        </div>
+      </article>
+
+
+      <article class="project" data-domain="net">
+        <div>
+          <span class="chip net">Network &amp; telecom</span>
+          <h3>SignalTrust</h3>
+          <p class="kind">Telecom fraud detection API</p>
+          <p class="meta">Status: live<br>16 endpoints</p>
+        </div>
+        <div>
+          <p>A fraud detection service that operators and their partners call over an API, delivered with full technical specifications.</p>
+          <div class="tags"><span>Telecom fraud</span><span>REST API</span><span>Real-time scoring</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="net">
+        <div>
+          <span class="chip net">Network &amp; telecom</span>
+          <h3>SignalGrid</h3>
+          <p class="kind">AI-RAN observability platform for mobile operators</p>
+          <p class="meta">Status: full platform specification</p>
+        </div>
+        <div>
+          <p>A four-layer observability design for radio access networks, written for West African operators who need visibility into AI-driven RAN behaviour.</p>
+          <div class="tags"><span>AI-RAN</span><span>Observability</span><span>RF engineering</span><span>Architecture spec</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="plat">
+        <div>
+          <span class="chip plat">Platforms</span>
+          <h3>ADRESA</h3>
+          <p class="kind">National digital addressing system for West Africa</p>
+          <p class="meta">Status: working implementation<br>Pilot country Togo, pilot city Lomé</p>
+        </div>
+        <div>
+          <p>Gives every building an official, verifiable address in countries where most streets have no names.</p>
+          <ul>
+            <li>Three-layer model: an immutable geocode per building, a mutable person-to-place pointer, and a confidence score</li>
+            <li>Citizen registration, official identity verification, then address and registry number assignment</li>
+            <li>Public verification endpoint that confirms an address without ever exposing identity data</li>
+            <li>Partner API for geocoding, reverse lookup and autocomplete, with self-service keys and rate limiting</li>
+            <li>18 Togolese localities across all five regions</li>
+          </ul>
+          <div class="tags"><span>Next.js</span><span>Supabase</span><span>PostGIS</span><span>Open Location Code</span><span>Privacy by design</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="plat">
+        <div>
+          <span class="chip plat">Platforms</span>
+          <h3>NaviMED + CARNET</h3>
+          <p class="kind">Clinical platform and patient portal for West African healthcare</p>
+          <p class="meta">Status: live<br><a href="https://www.navimedi.org">navimedi.org</a></p>
+        </div>
+        <div>
+          <p>Patient records, laboratory, pharmacy and insurance workflows in one tool, with a patient portal that replaces the paper health booklet.</p>
+          <ul>
+            <li>Electronic health record for clinics, pharmacies, laboratories and insurers</li>
+            <li>Patient-facing portal for the individual's own health history</li>
+            <li>Available in 10 languages</li>
+          </ul>
+          <div class="tags"><span>EHR</span><span>Health data</span><span>Multilingual</span><span>Multi-tenant</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="plat">
+        <div>
+          <span class="chip plat">Platforms</span>
+          <h3>K-Vault</h3>
+          <p class="kind">Parental control app for iOS and Android</p>
+          <p class="meta">Status: shipped on both stores<br><a href="https://kvaults.com">kvaults.com</a></p>
+        </div>
+        <div>
+          <p>Network-level protection for children's devices, built on DNS filtering instead of on-device blocklists alone.</p>
+          <ul>
+            <li>Cloudflare Zero Trust DNS filtering with a NextDNS profile per child</li>
+            <li>Native screen-time modules on each platform</li>
+          </ul>
+          <div class="tags"><span>Cloudflare Zero Trust</span><span>NextDNS</span><span>iOS</span><span>Android</span></div>
+        </div>
+      </article>
+
+      <article class="project" data-domain="plat">
+        <div>
+          <span class="chip plat">Platforms</span>
+          <h3>Custos</h3>
+          <p class="kind">AI-native learning management system, K-12 through university</p>
+          <p class="meta">Status: built<br>English and French</p>
+        </div>
+        <div>
+          <p>A multi-tenant LMS that plugs into the identity and student-records systems schools already run.</p>
+          <ul>
+            <li>LTI 1.3 tool integration and SAML 2.0 single sign-on</li>
+            <li>Student information system sync</li>
+            <li>Three built-in AI agents</li>
+          </ul>
+          <div class="tags"><span>LTI 1.3</span><span>SAML 2.0</span><span>SIS sync</span><span>Multi-tenant</span></div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <h2>More shipped builds</h2>
+    <p class="section-note">Smaller or earlier products, each built end to end.</p>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Product</th><th>What it does</th><th>Where</th></tr></thead>
+        <tbody>
+          <tr><td>IAPAY</td><td>Pan-African payment aggregation with a multi-country, multi-currency wallet</td><td>Live</td></tr>
+          <tr><td>Remittance platform</td><td>Full-stack licensed money transfer for West African corridors, built for a client</td><td>Client build</td></tr>
+          <tr><td>VUNA</td><td>Smart-farming AI assistant supporting 18 African languages</td><td>Live</td></tr>
+          <tr><td>FaireTax</td><td>AI property tax assessment tool</td><td><a href="https://fairetax.com">fairetax.com</a></td></tr>
+          <tr><td>StyleHub</td><td>Booking SaaS for beauty businesses</td><td><a href="https://sty-h.com">sty-h.com</a></td></tr>
+          <tr><td>Loop Africa</td><td>Pan-African business directory</td><td><a href="https://loopafrica.org">loopafrica.org</a></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section id="toolbox">
+  <div class="wrap">
+    <h2>Toolbox</h2>
+    <p class="section-note">What the projects above were built with.</p>
+    <div class="cols">
+      <div class="col">
+        <h3><span class="node sec"></span>Security</h3>
+        <ul>
+          <li>Default-deny egress and TLS interception</li>
+          <li>Penetration testing and vulnerability management</li>
+          <li>SOC / SIEM monitoring</li>
+          <li>Compliance mapping: NIST 800-53, FedRAMP, SOC 2, ISO 27001, CMMC, HIPAA, PCI DSS</li>
+          <li>Identity: Keycloak, SAML 2.0</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3><span class="node net"></span>Network &amp; telecom</h3>
+        <ul>
+          <li>Core IP backbone operations and restoration</li>
+          <li>Junos (JNCIA)</li>
+          <li>Electrical and RF engineering background</li>
+          <li>DNS, mail authentication and Cloudflare edge</li>
+          <li>Self-hosted mail: Postal with SES relay</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3><span class="node plat"></span>Platforms</h3>
+        <ul>
+          <li>Next.js full-stack applications</li>
+          <li>PostgreSQL: Neon, Supabase, PostGIS</li>
+          <li>iOS and Android native modules</li>
+          <li>LLM agents with human review gates</li>
+          <li>Bilingual product delivery, English and French</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="credentials">
+  <div class="wrap">
+    <h2>Credentials</h2>
+    <p class="section-note">Formal training behind the work.</p>
+    <div class="creds">
+      <div class="col">
+        <h3>Education</h3>
+        <ul>
+          <li>M.S. Computer and Cybersecurity, AIU (2025)</li>
+          <li>B.S. Information Technology, AIU</li>
+          <li>Engineering Management certificate, Cornell</li>
+          <li>LL.B. Law, University of Lomé</li>
+        </ul>
+      </div>
+      <div class="col">
+        <h3>Certifications and programs</h3>
+        <ul>
+          <li>CompTIA Security+</li>
+          <li>CompTIA Network+</li>
+          <li>Juniper JNCIA-Junos</li>
+          <li>AI Solutions Architect</li>
+          <li>AT&amp;T Technology Development Program, three rotations completed</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <h2>Walkthroughs on request</h2>
+    <p>Live demos, architecture walkthroughs and code review under NDA are available for any project on this page. Open to remote roles and to relocation.</p>
+    <div class="contact">
+      <a href="https://github.com/babalekpam">github.com/babalekpam</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var projects = document.querySelectorAll('.project');
+  buttons.forEach(function (b) {
+    b.addEventListener('click', function () {
+      var f = b.getAttribute('data-filter');
+      buttons.forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      projects.forEach(function (p) {
+        p.hidden = !(f === 'all' || p.getAttribute('data-domain') === f);
+      });
+    });
+  });
+})();
+</script>
+</body>
+</html>
